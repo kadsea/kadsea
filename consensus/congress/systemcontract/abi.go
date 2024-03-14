@@ -779,12 +779,18 @@ const ValidatorsV2InteractiveABI = `[
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "distributeBlockReward",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_punish",
+          "type": "address"
+        }
+      ],
+      "name": "distributeBlockReward",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
 	{
 		"inputs": [],
 		"name": "getActiveValidators",
