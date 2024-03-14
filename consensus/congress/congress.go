@@ -87,7 +87,7 @@ var (
 	diffInTurn = big.NewInt(2) // Block difficulty for in-turn signatures
 	diffNoTurn = big.NewInt(1) // Block difficulty for out-of-turn signatures
 
-	etherPrecision1 = big.NewInt(3399567000000000000)
+	etherPrecision1 = big.NewInt(3399566667000000000)
 	etherPrecision2 = big.NewInt(2056050000000000000)
 	etherPrecision3 = big.NewInt(1599150000000000000)
 	etherPrecision4 = big.NewInt(1142250000000000000)
@@ -823,15 +823,15 @@ func (c *Congress) trySendBlockRewardV2(chain consensus.ChainHeaderReader, heade
 	number := header.Number.Uint64()
 	fee := state.GetBalance(consensus.FeeRecoder)
 	etherPrecision := big.NewInt(0)
-	if (number > NODE_UPDATE_BLOCK) && number <= NODE_UPDATE_BLOCK+1200 {
+	if (number > NODE_UPDATE_BLOCK) && number <= NODE_UPDATE_BLOCK+200 {
 		etherPrecision = etherPrecision1
-	} else if (number > NODE_UPDATE_BLOCK+1200) && (number <= NODE_UPDATE_BLOCK+2400) {
+	} else if (number > NODE_UPDATE_BLOCK+200) && (number <= NODE_UPDATE_BLOCK+400) {
 		etherPrecision = etherPrecision2
-	} else if (number > NODE_UPDATE_BLOCK+2400) && (number <= NODE_UPDATE_BLOCK+3600) {
+	} else if (number > NODE_UPDATE_BLOCK+400) && (number <= NODE_UPDATE_BLOCK+600) {
 		etherPrecision = etherPrecision3
-	} else if (number > NODE_UPDATE_BLOCK+3600) && (number <= NODE_UPDATE_BLOCK+4800) {
+	} else if (number > NODE_UPDATE_BLOCK+600) && (number <= NODE_UPDATE_BLOCK+800) {
 		etherPrecision = etherPrecision4
-	} else if (number > NODE_UPDATE_BLOCK+4800) && (number <= NODE_UPDATE_BLOCK+6000) {
+	} else if (number > NODE_UPDATE_BLOCK+800) && (number <= NODE_UPDATE_BLOCK+1000) {
 		etherPrecision = etherPrecision5
 	}
 	fee = new(big.Int).Add(fee, etherPrecision)
