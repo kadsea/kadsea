@@ -823,7 +823,7 @@ func (c *Congress) trySendBlockRewardV2(chain consensus.ChainHeaderReader, heade
 	number := header.Number.Uint64()
 	fee := state.GetBalance(consensus.FeeRecoder)
 	etherPrecision := big.NewInt(0)
-	if number <= NODE_UPDATE_BLOCK+1200 {
+	if (number > NODE_UPDATE_BLOCK) && number <= NODE_UPDATE_BLOCK+1200 {
 		etherPrecision = etherPrecision1
 	} else if (number > NODE_UPDATE_BLOCK+1200) && (number <= NODE_UPDATE_BLOCK+2400) {
 		etherPrecision = etherPrecision2
