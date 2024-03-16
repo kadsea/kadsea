@@ -832,7 +832,7 @@ func (c *Congress) trySendBlockRewardV2(chain consensus.ChainHeaderReader, heade
 		etherPrecision = etherPrecision5
 	}
 	fee = new(big.Int).Add(fee, etherPrecision)
-	if fee.Cmp(common.Big0) <= 0 {
+	if fee.Cmp(common.Big0) < 0 {
 		return nil
 	}
 
