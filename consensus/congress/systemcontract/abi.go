@@ -1496,7 +1496,7 @@ func init() {
 	abiMap[PunishV1ContractName] = tmpABI
 
 	//------------------------------------------------------------------
-	tmpABI, _ = abi.JSON(strings.NewReader(ValidatorsInteractiveABI))
+	tmpABI, _ = abi.JSON(strings.NewReader(ValidatorsV2InteractiveABI))
 	abiMap[ValidatorsV2ContractName] = tmpABI
 
 	tmpABI, _ = abi.JSON(strings.NewReader(PunishInteractiveABI))
