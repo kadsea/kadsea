@@ -890,7 +890,8 @@ func (c *Congress) trySendBlockReward(chain consensus.ChainHeaderReader, header 
 	state.SetBalance(consensus.FeeRecoder, common.Big0)
 
 	method := "distributeBlockReward"
-	data, err := c.abi[systemcontract.ValidatorsContractName].Pack(method)
+	val := common.HexToAddress("0x0000000000000000000000000000000000000000")
+	data, err := c.abi[systemcontract.ValidatorsContractName].Pack(method, val)
 	if err != nil {
 		log.Error("Can't pack data for distributeBlockReward", "err", err)
 		return err
