@@ -72,7 +72,7 @@ const (
 )
 
 const (
-	NODE_UPDATE_BLOCK = 850
+	NODE_UPDATE_BLOCK = 450
 )
 
 // Congress proof-of-stake-authority protocol constants.
