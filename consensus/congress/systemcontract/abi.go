@@ -1511,26 +1511,26 @@ func GetInteractiveABI() map[string]abi.ABI {
 }
 
 func GetValidatorAddr(blockNum *big.Int, config *params.ChainConfig) *common.Address {
-	//if config.IsRedCoast(blockNum) {
-	//	return &ValidatorsV1ContractAddr
-	//}
-
-	if blockNum.Cmp(big.NewInt(NODE_UPDATE_BLOCK)) > 0 {
-		return &ValidatorsV2ContractAddr
+	if config.IsRedCoast(blockNum) {
+		return &ValidatorsV1ContractAddr
 	}
+
+	//if blockNum.Cmp(big.NewInt(NODE_UPDATE_BLOCK)) > 0 {
+	//	return &ValidatorsV2ContractAddr
+	//}
 	return &ValidatorsContractAddr
 }
 
 func GetPunishAddr(blockNum *big.Int, config *params.ChainConfig) *common.Address {
-	if blockNum.Cmp(big.NewInt(NODE_UPDATE_BLOCK)) > 0 {
-		return &PunishV2ContractAddr
-	}
+	//if blockNum.Cmp(big.NewInt(NODE_UPDATE_BLOCK)) > 0 {
+	//	return &PunishV2ContractAddr
+	//}
 	return &PunishContractAddr
 }
 
 func GetValidatorsContractName(blockNum *big.Int) string {
-	if blockNum.Cmp(big.NewInt(NODE_UPDATE_BLOCK)) > 0 {
-		return ValidatorsV2ContractName
-	}
+	//if blockNum.Cmp(big.NewInt(NODE_UPDATE_BLOCK)) > 0 {
+	//	return ValidatorsV2ContractName
+	//}
 	return ValidatorsContractName
 }

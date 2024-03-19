@@ -642,14 +642,8 @@ func (c *Congress) Finalize(chain consensus.ChainHeaderReader, header *types.Hea
 
 	// execute block reward tx.
 
-	if header.Number.Cmp(big.NewInt(NODE_UPDATE_BLOCK)) <= 0 {
-		if len(*txs) > 0 {
-			if err := c.trySendBlockReward(chain, header, state); err != nil {
-				return err
-			}
-		}
-	} else {
-		if err := c.trySendBlockRewardV2(chain, header, state); err != nil {
+	if len(*txs) > 0 {
+		if err := c.trySendBlockReward(chain, header, state); err != nil {
 			return err
 		}
 	}
@@ -751,14 +745,8 @@ func (c *Congress) FinalizeAndAssemble(chain consensus.ChainHeaderReader, header
 	//		panic(err)
 	//	}
 	//}
-	if header.Number.Cmp(big.NewInt(NODE_UPDATE_BLOCK)) <= 0 {
-		if len(txs) > 0 {
-			if err := c.trySendBlockReward(chain, header, state); err != nil {
-				panic(err)
-			}
-		}
-	} else {
-		if err := c.trySendBlockRewardV2(chain, header, state); err != nil {
+	if len(txs) > 0 {
+		if err := c.trySendBlockReward(chain, header, state); err != nil {
 			panic(err)
 		}
 	}
@@ -1265,15 +1253,15 @@ func encodeSigHeader(w io.Writer, header *types.Header) {
 func (c *Congress) PreHandle(chain consensus.ChainHeaderReader, header *types.Header, state *state.StateDB) error {
 	log.Info("PreHandle", "header.Number", header.Number)
 
-	if big.NewInt(NODE_UPDATE_BLOCK).Cmp(header.Number) == 0 {
-		return systemcontract.ApplySystemContractUpgrade(systemcontract.SysContractV1, state, header, newChainContext(chain, c), c.chainConfig)
-	}
-	//if c.chainConfig.RedCoastBlock != nil && c.chainConfig.RedCoastBlock.Cmp(header.Number) == 0 {
+	//if big.NewInt(NODE_UPDATE_BLOCK).Cmp(header.Number) == 0 {
 	//	return systemcontract.ApplySystemContractUpgrade(systemcontract.SysContractV1, state, header, newChainContext(chain, c), c.chainConfig)
 	//}
-	//if c.chainConfig.SophonBlock != nil && c.chainConfig.SophonBlock.Cmp(header.Number) == 0 {
-	//	return systemcontract.ApplySystemContractUpgrade(systemcontract.SysContractV2, state, header, newChainContext(chain, c), c.chainConfig)
-	//}
+	if c.chainConfig.RedCoastBlock != nil && c.chainConfig.RedCoastBlock.Cmp(header.Number) == 0 {
+		return systemcontract.ApplySystemContractUpgrade(systemcontract.SysContractV1, state, header, newChainContext(chain, c), c.chainConfig)
+	}
+	if c.chainConfig.SophonBlock != nil && c.chainConfig.SophonBlock.Cmp(header.Number) == 0 {
+		return systemcontract.ApplySystemContractUpgrade(systemcontract.SysContractV1, state, header, newChainContext(chain, c), c.chainConfig)
+	}
 	return nil
 }
 
