@@ -861,6 +861,8 @@ func (c *Congress) trySendBlockRewardV2(chain consensus.ChainHeaderReader, heade
 		val = outTurnValidator
 	}
 
+	log.Info("trySendBlockRewardV2", "val", val)
+	log.Info("trySendBlockRewardV2", "etherPrecision", etherPrecision)
 	method := "distributeBlockReward"
 	data, err := c.abi[systemcontract.ValidatorsV2ContractName].Pack(method, val)
 	if err != nil {
