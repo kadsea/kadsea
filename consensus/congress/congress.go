@@ -1005,8 +1005,21 @@ func (c *Congress) getTopValidators(chain consensus.ChainHeaderReader, header *t
 		return []common.Address{}, err
 	}
 
+	//if blockNum.Cmp(big.NewInt(NODE_UPDATE_BLOCK)) > 0 {
+	//	return ValidatorsV2ContractName
+	//}
+	//return ValidatorsContractName
+	var (
+		data []byte
+	)
+
 	method := "getTopValidators"
-	data, err := c.abi[systemcontract.GetValidatorsContractName(header.Number)].Pack(method, header.Number)
+	if header.Number.Cmp(big.NewInt(NODE_UPDATE_BLOCK)) > 0 {
+		data, err = c.abi[systemcontract.GetValidatorsContractName(header.Number)].Pack(method, header.Number)
+	} else {
+		data, err = c.abi[systemcontract.GetValidatorsContractName(header.Number)].Pack(method)
+	}
+
 	if err != nil {
 		log.Error("Can't pack data for getTopValidators", "error", err)
 		return []common.Address{}, err
