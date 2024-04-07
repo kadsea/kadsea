@@ -853,18 +853,24 @@ const ValidatorsV2InteractiveABI = `[
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "getTopValidators",
-		"outputs": [
-			{
-				"internalType": "address[]",
-				"name": "",
-				"type": "address[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_number",
+          "type": "uint256"
+        }
+      ],
+      "name": "getTopValidators",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
 	{
 		"inputs": [],
 		"name": "getTotalStakeOfActiveValidators",
@@ -1101,24 +1107,29 @@ const ValidatorsV2InteractiveABI = `[
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
-	{
-		"inputs": [
-			{
-				"internalType": "address[]",
-				"name": "newSet",
-				"type": "address[]"
-			},
-			{
-				"internalType": "uint256",
-				"name": "epoch",
-				"type": "uint256"
-			}
-		],
-		"name": "updateActiveValidatorSet",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
+	 {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "newSet",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "epoch",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_number",
+          "type": "uint256"
+        }
+      ],
+      "name": "updateActiveValidatorSet",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
 	{
 		"inputs": [
 			{
