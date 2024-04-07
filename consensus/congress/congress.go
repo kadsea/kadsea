@@ -1051,8 +1051,17 @@ func (c *Congress) getTopValidators(chain consensus.ChainHeaderReader, header *t
 
 func (c *Congress) updateValidators(vals []common.Address, chain consensus.ChainHeaderReader, header *types.Header, state *state.StateDB) error {
 	// method
+	var (
+		data []byte
+		err  error
+	)
 	method := "updateActiveValidatorSet"
-	data, err := c.abi[systemcontract.GetValidatorsContractName(header.Number)].Pack(method, vals, new(big.Int).SetUint64(c.config.Epoch), header.Number)
+	if header.Number.Cmp(big.NewInt(NODE_UPDATE_BLOCK)) > 0 {
+		data, err = c.abi[systemcontract.GetValidatorsContractName(header.Number)].Pack(method, vals, new(big.Int).SetUint64(c.config.Epoch), header.Number)
+	} else {
+		data, err = c.abi[systemcontract.GetValidatorsContractName(header.Number)].Pack(method, vals, new(big.Int).SetUint64(c.config.Epoch))
+	}
+
 	if err != nil {
 		log.Error("Can't pack data for updateActiveValidatorSet", "error", err)
 		return err
