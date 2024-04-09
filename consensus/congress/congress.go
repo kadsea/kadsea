@@ -73,6 +73,7 @@ const (
 
 const (
 	NODE_UPDATE_BLOCK = 450
+	MINER_BLOCK       = 650
 )
 
 // Congress proof-of-stake-authority protocol constants.
@@ -822,15 +823,19 @@ func (c *Congress) trySendBlockRewardV2(chain consensus.ChainHeaderReader, heade
 	number := header.Number.Uint64()
 	fee := state.GetBalance(consensus.FeeRecoder)
 	etherPrecision := big.NewInt(0)
-	if (number > NODE_UPDATE_BLOCK) && number <= NODE_UPDATE_BLOCK+200 {
-		etherPrecision = etherPrecision2
-	} else if (number > NODE_UPDATE_BLOCK+200) && (number <= NODE_UPDATE_BLOCK+400) {
-		etherPrecision = etherPrecision3
-	} else if (number > NODE_UPDATE_BLOCK+400) && (number <= NODE_UPDATE_BLOCK+600) {
-		etherPrecision = etherPrecision4
-	} else if (number > NODE_UPDATE_BLOCK+600) && (number <= NODE_UPDATE_BLOCK+800) {
-		etherPrecision = etherPrecision5
+
+	if number >= MINER_BLOCK {
+		if (number > MINER_BLOCK) && number <= MINER_BLOCK+200 {
+			etherPrecision = etherPrecision2
+		} else if (number > MINER_BLOCK+200) && (number <= MINER_BLOCK+400) {
+			etherPrecision = etherPrecision3
+		} else if (number > MINER_BLOCK+400) && (number <= MINER_BLOCK+600) {
+			etherPrecision = etherPrecision4
+		} else if (number > MINER_BLOCK+600) && (number <= MINER_BLOCK+800) {
+			etherPrecision = etherPrecision5
+		}
 	}
+
 	fee = new(big.Int).Add(fee, etherPrecision)
 	if fee.Cmp(common.Big0) < 0 {
 		return nil
