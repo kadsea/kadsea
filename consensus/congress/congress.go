@@ -944,14 +944,17 @@ func (c *Congress) doSomethingAtEpoch(chain consensus.ChainHeaderReader, header 
 		return []common.Address{}, err
 	}
 
+	number := header.Number.Uint64()
 	// update contract new validators if new set exists
 	if err := c.updateValidators(newSortedValidators, chain, header, state); err != nil {
 		return []common.Address{}, err
 	}
 	//  decrease validator missed blocks counter at epoch
-	//if err := c.decreaseMissedBlocksCounter(chain, header, state); err != nil {
-	//	return []common.Address{}, err
-	//}
+	if number <= NODE_UPDATE_BLOCK {
+		if err := c.decreaseMissedBlocksCounter(chain, header, state); err != nil {
+			return []common.Address{}, err
+		}
+	}
 
 	return newSortedValidators, nil
 }
@@ -1010,10 +1013,6 @@ func (c *Congress) getTopValidators(chain consensus.ChainHeaderReader, header *t
 		return []common.Address{}, err
 	}
 
-	//if blockNum.Cmp(big.NewInt(NODE_UPDATE_BLOCK)) > 0 {
-	//	return ValidatorsV2ContractName
-	//}
-	//return ValidatorsContractName
 	var (
 		data []byte
 	)
