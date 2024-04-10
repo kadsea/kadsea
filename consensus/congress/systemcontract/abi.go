@@ -1,11 +1,12 @@
 package systemcontract
 
 import (
+	"math/big"
+	"strings"
+
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/params"
-	"math/big"
-	"strings"
 )
 
 // ValidatorsInteractiveABI contains all methods to interactive with validator contracts.
@@ -1455,7 +1456,7 @@ var (
 )
 
 const (
-	NODE_UPDATE_BLOCK = 250
+	NODE_UPDATE_BLOCK = 3670926
 )
 
 var (

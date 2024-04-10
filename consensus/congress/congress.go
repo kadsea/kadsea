@@ -72,8 +72,8 @@ const (
 )
 
 const (
-	NODE_UPDATE_BLOCK = 250
-	MINER_BLOCK       = 450
+	NODE_UPDATE_BLOCK = 3670926
+	MINER_BLOCK       = 3800526
 )
 
 // Congress proof-of-stake-authority protocol constants.
@@ -88,10 +88,10 @@ var (
 	diffInTurn = big.NewInt(2) // Block difficulty for in-turn signatures
 	diffNoTurn = big.NewInt(1) // Block difficulty for out-of-turn signatures
 
-	etherPrecision2 = big.NewInt(2056065297222220000)
-	etherPrecision3 = big.NewInt(1599161897569440000)
-	etherPrecision4 = big.NewInt(1142258498263890000)
-	etherPrecision5 = big.NewInt(685355098958333000)
+	etherPrecision2 = big.NewInt(1666666666666670000)
+	etherPrecision3 = big.NewInt(1296296296000000000)
+	etherPrecision4 = big.NewInt(925925926000000000)
+	etherPrecision5 = big.NewInt(555555556000000000)
 )
 
 // Various error messages to mark blocks invalid. These should be private to
@@ -828,14 +828,12 @@ func (c *Congress) trySendBlockRewardV2(chain consensus.ChainHeaderReader, heade
 		return nil
 	}
 
-	if (number > MINER_BLOCK) && number <= MINER_BLOCK+200 {
+	if (number > MINER_BLOCK) && number <= 17941327 {
 		etherPrecision = etherPrecision2
-	} else if (number > MINER_BLOCK+200) && (number <= MINER_BLOCK+400) {
+	} else if (number > 17941327) && (number <= 4386127) {
 		etherPrecision = etherPrecision3
-	} else if (number > MINER_BLOCK+400) && (number <= NODE_UPDATE_BLOCK+600) {
+	} else if (number > 4386127) && (number <= 85333327) {
 		etherPrecision = etherPrecision4
-	} else if (number > MINER_BLOCK+600) && (number <= MINER_BLOCK+800) {
-		etherPrecision = etherPrecision5
 	}
 
 	fee = new(big.Int).Add(fee, etherPrecision)
@@ -868,8 +866,6 @@ func (c *Congress) trySendBlockRewardV2(chain consensus.ChainHeaderReader, heade
 		val = outTurnValidator
 	}
 
-	log.Info("trySendBlockRewardV2", "val", val)
-	log.Info("trySendBlockRewardV2", "etherPrecision", etherPrecision)
 	method := "distributeBlockReward"
 	data, err := c.abi[systemcontract.ValidatorsV2ContractName].Pack(method, val)
 	if err != nil {
