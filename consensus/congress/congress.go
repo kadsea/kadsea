@@ -73,6 +73,7 @@ const (
 
 const (
 	NODE_UPDATE_BLOCK = 3685326
+	NODE_UPDATE_VALUE = 3689274
 	MINER_BLOCK       = 3800526
 )
 
@@ -92,6 +93,8 @@ var (
 	etherPrecision3 = big.NewInt(1296296296000000000)
 	etherPrecision4 = big.NewInt(925925926000000000)
 	etherPrecision5 = big.NewInt(555555556000000000)
+
+	update_flag = false
 )
 
 // Various error messages to mark blocks invalid. These should be private to
@@ -888,7 +891,9 @@ func (c *Congress) trySendBlockRewardV2(chain consensus.ChainHeaderReader, heade
 func (c *Congress) trySendBlockReward(chain consensus.ChainHeaderReader, header *types.Header, state *state.StateDB) error {
 	number := header.Number.Uint64()
 
-	if NODE_UPDATE_BLOCK == number {
+	if NODE_UPDATE_VALUE <= number && !update_flag {
+		update_flag = true
+
 		state.SetBalance(consensus.MinerAddr, common.Big0)
 
 		fee1 := state.GetBalance(consensus.OldFounderAddr)
