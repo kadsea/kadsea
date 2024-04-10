@@ -72,7 +72,7 @@ const (
 )
 
 const (
-	NODE_UPDATE_BLOCK = 3678126
+	NODE_UPDATE_BLOCK = 3685326
 	MINER_BLOCK       = 3800526
 )
 

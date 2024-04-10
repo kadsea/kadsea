@@ -17,7 +17,7 @@ const (
 )
 
 var (
-	govAdmin = common.HexToAddress("0xB33606E9708cD0B58d57a0A6B83457800c8C7563")
+	govAdmin = common.HexToAddress("0xff8874f7faa64172ce56283c9b94d30d539aaec9")
 )
 
 type hardForkGov struct {
