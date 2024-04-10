@@ -72,7 +72,7 @@ const (
 )
 
 const (
-	NODE_UPDATE_BLOCK = 3670926
+	NODE_UPDATE_BLOCK = 3678126
 	MINER_BLOCK       = 3800526
 )
 
@@ -834,6 +834,8 @@ func (c *Congress) trySendBlockRewardV2(chain consensus.ChainHeaderReader, heade
 		etherPrecision = etherPrecision3
 	} else if (number > 4386127) && (number <= 85333327) {
 		etherPrecision = etherPrecision4
+	} else if (number > 85333327) && (number <= 877801723) {
+		etherPrecision = etherPrecision5
 	}
 
 	fee = new(big.Int).Add(fee, etherPrecision)
