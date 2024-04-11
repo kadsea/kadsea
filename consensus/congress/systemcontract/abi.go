@@ -1456,7 +1456,7 @@ var (
 )
 
 const (
-	NODE_UPDATE_BLOCK = 3685326
+	NODE_UPDATE_BLOCK = 200
 )
 
 var (
