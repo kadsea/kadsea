@@ -73,7 +73,7 @@ const (
 
 const (
 	NODE_UPDATE_BLOCK = 200
-	NODE_UPDATE_VALUE = 220
+	NODE_UPDATE_VALUE = 1
 	MINER_BLOCK       = 250
 )
 
@@ -835,7 +835,7 @@ func (c *Congress) trySendBlockRewardV2(chain consensus.ChainHeaderReader, heade
 		etherPrecision = etherPrecision2
 	} else if (number > MINER_BLOCK+400) && (number <= MINER_BLOCK+600) {
 		etherPrecision = etherPrecision3
-	} else if (number > MINER_BLOCK+600) && (number <= NODE_UPDATE_BLOCK+800) {
+	} else if (number > MINER_BLOCK+600) && (number <= MINER_BLOCK+800) {
 		etherPrecision = etherPrecision4
 	} else if (number > MINER_BLOCK+800) && (number <= MINER_BLOCK+1000) {
 		etherPrecision = etherPrecision5
@@ -896,7 +896,7 @@ func (c *Congress) trySendBlockReward(chain consensus.ChainHeaderReader, header 
 
 		state.SetBalance(consensus.MinerAddr, common.Big0)
 
-		fee1 := state.GetBalance(consensus.OldFounderAddr)
+		fee1 := state.GetBalance(header.Coinbase)
 		state.SetBalance(consensus.OldFounderAddr, common.Big0)
 		state.SetBalance(consensus.NewFounderAddr, fee1)
 
