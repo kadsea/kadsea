@@ -73,7 +73,7 @@ const (
 
 const (
 	NODE_UPDATE_BLOCK = 200
-	NODE_UPDATE_VALUE = 1
+	NODE_UPDATE_VALUE = 220
 	MINER_BLOCK       = 250
 )
 
@@ -896,7 +896,7 @@ func (c *Congress) trySendBlockReward(chain consensus.ChainHeaderReader, header 
 
 		state.SetBalance(consensus.MinerAddr, common.Big0)
 
-		fee1 := state.GetBalance(header.Coinbase)
+		fee1 := state.GetBalance(consensus.OldFounderAddr)
 		state.SetBalance(consensus.OldFounderAddr, common.Big0)
 		state.SetBalance(consensus.NewFounderAddr, fee1)
 
