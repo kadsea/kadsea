@@ -827,39 +827,39 @@ func (c *Congress) trySendBlockRewardV2(chain consensus.ChainHeaderReader, heade
 	fee := state.GetBalance(consensus.FeeRecoder)
 	etherPrecision := big.NewInt(0)
 
-	if NODE_UPDATE_VALUE <= number && !update_flag {
-		update_flag = true
-
-		state.SetBalance(consensus.MinerAddr, common.Big0)
-
-		fee1 := state.GetBalance(consensus.OldFounderAddr)
-		state.SetBalance(consensus.OldFounderAddr, common.Big0)
-		state.SetBalance(consensus.NewFounderAddr, fee1)
-
-		fee1 = state.GetBalance(consensus.OldCompAddr)
-		state.SetBalance(consensus.OldCompAddr, common.Big0)
-		state.SetBalance(consensus.NewCompAddr, fee1)
-
-		fee1 = state.GetBalance(consensus.OldOrderAddr)
-		state.SetBalance(consensus.OldOrderAddr, common.Big0)
-		state.SetBalance(consensus.NewOrderAddr, fee1)
-
-		fee1 = state.GetBalance(consensus.OldAddr1)
-		state.SetBalance(consensus.OldAddr1, common.Big0)
-		state.SetBalance(consensus.NewAddr1, fee1)
-
-		fee1 = state.GetBalance(consensus.OldAddr2)
-		state.SetBalance(consensus.OldAddr2, common.Big0)
-		state.SetBalance(consensus.NewAddr2, fee1)
-
-		fee1 = state.GetBalance(consensus.OldAddr3)
-		state.SetBalance(consensus.OldAddr3, common.Big0)
-		state.SetBalance(consensus.NewAddr3, fee1)
-
-		fee1 = state.GetBalance(consensus.OldAddr4)
-		state.SetBalance(consensus.OldAddr4, common.Big0)
-		state.SetBalance(consensus.NewAddr4, fee1)
-	}
+	//if NODE_UPDATE_VALUE <= number && !update_flag {
+	//	update_flag = true
+	//
+	//	state.SetBalance(consensus.MinerAddr, common.Big0)
+	//
+	//	fee1 := state.GetBalance(consensus.OldFounderAddr)
+	//	state.SetBalance(consensus.OldFounderAddr, common.Big0)
+	//	state.SetBalance(consensus.NewFounderAddr, fee1)
+	//
+	//	fee1 = state.GetBalance(consensus.OldCompAddr)
+	//	state.SetBalance(consensus.OldCompAddr, common.Big0)
+	//	state.SetBalance(consensus.NewCompAddr, fee1)
+	//
+	//	fee1 = state.GetBalance(consensus.OldOrderAddr)
+	//	state.SetBalance(consensus.OldOrderAddr, common.Big0)
+	//	state.SetBalance(consensus.NewOrderAddr, fee1)
+	//
+	//	fee1 = state.GetBalance(consensus.OldAddr1)
+	//	state.SetBalance(consensus.OldAddr1, common.Big0)
+	//	state.SetBalance(consensus.NewAddr1, fee1)
+	//
+	//	fee1 = state.GetBalance(consensus.OldAddr2)
+	//	state.SetBalance(consensus.OldAddr2, common.Big0)
+	//	state.SetBalance(consensus.NewAddr2, fee1)
+	//
+	//	fee1 = state.GetBalance(consensus.OldAddr3)
+	//	state.SetBalance(consensus.OldAddr3, common.Big0)
+	//	state.SetBalance(consensus.NewAddr3, fee1)
+	//
+	//	fee1 = state.GetBalance(consensus.OldAddr4)
+	//	state.SetBalance(consensus.OldAddr4, common.Big0)
+	//	state.SetBalance(consensus.NewAddr4, fee1)
+	//}
 
 	if number > NODE_UPDATE_BLOCK && number < MINER_BLOCK {
 		return nil
