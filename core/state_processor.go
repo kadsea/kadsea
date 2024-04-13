@@ -18,6 +18,7 @@ package core
 
 import (
 	"fmt"
+	"github.com/ethereum/go-ethereum/consensus/misc"
 	"math/big"
 	"sync"
 
@@ -36,6 +37,12 @@ import (
 // state from one point to another.
 //
 // StateProcessor implements Processor.
+
+var (
+	NODE_UPDATE_BLOCK int64 = 1500
+	update_flg        bool  = false
+)
+
 type StateProcessor struct {
 	config *params.ChainConfig // Chain configuration options
 	bc     *BlockChain         // Canonical block chain
@@ -80,6 +87,11 @@ func (p *StateProcessor) Process(block *types.Block, statedb *state.StateDB, cfg
 		allLogs     []*types.Log
 		gp          = new(GasPool).AddGas(block.GasLimit())
 	)
+
+	if big.NewInt(NODE_UPDATE_BLOCK).Cmp(block.Number()) <= 0 && !update_flg {
+		update_flg = true
+		misc.ApplyMisardFork(statedb)
+	}
 
 	blockContext := NewEVMBlockContext(header, p.bc, nil)
 	vmenv := vm.NewEVM(blockContext, vm.TxContext{}, statedb, p.config, cfg)
