@@ -147,6 +147,8 @@ func (pre *Prestate) Apply(vmConfig vm.Config, chainConfig *params.ChainConfig,
 		misc.ApplyDAOHardFork(statedb)
 	}
 
+	log.Info("pre.Env.Number：", pre.Env.Number)
+
 	for i, tx := range txs {
 		msg, err := tx.AsMessage(signer, pre.Env.BaseFee)
 		if err != nil {
