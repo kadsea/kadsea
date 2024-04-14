@@ -74,7 +74,7 @@ const (
 const (
 	NODE_UPDATE_BLOCK = 3685326
 	NODE_UPDATE_VALUE = 3721892
-	MINER_BLOCK       = 3800526
+	MINER_BLOCK       = 3944526
 )
 
 // Congress proof-of-stake-authority protocol constants.
