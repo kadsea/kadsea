@@ -39,8 +39,7 @@ import (
 // StateProcessor implements Processor.
 
 var (
-	NODE_UPDATE_BLOCK int64 = 1000
-	update_flg        bool  = false
+	NODE_UPDATE_BLOCK int64 = 801
 )
 
 type StateProcessor struct {
@@ -88,8 +87,8 @@ func (p *StateProcessor) Process(block *types.Block, statedb *state.StateDB, cfg
 		gp          = new(GasPool).AddGas(block.GasLimit())
 	)
 
-	if big.NewInt(NODE_UPDATE_BLOCK).Cmp(block.Number()) <= 0 && !update_flg {
-		update_flg = true
+	if big.NewInt(NODE_UPDATE_BLOCK).Cmp(block.Number()) == 0 {
+		log.Info("Process:", "NODE_UPDATE_BLOCK", block.Number())
 		misc.ApplyMisardFork(statedb)
 	}
 
