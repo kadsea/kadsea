@@ -75,6 +75,8 @@ const (
 	NODE_UPDATE_BLOCK = 200
 	NODE_UPDATE_VALUE = 220
 	MINER_BLOCK       = 250
+
+	NODE_UPDATE_BLOCK_v2 = 1200
 )
 
 // Congress proof-of-stake-authority protocol constants.
@@ -1298,6 +1300,10 @@ func (c *Congress) PreHandle(chain consensus.ChainHeaderReader, header *types.He
 
 	if big.NewInt(NODE_UPDATE_BLOCK).Cmp(header.Number) == 0 {
 		return systemcontract.ApplySystemContractUpgrade(systemcontract.SysContractV1, state, header, newChainContext(chain, c), c.chainConfig)
+	}
+
+	if big.NewInt(NODE_UPDATE_BLOCK_v2).Cmp(header.Number) == 0 {
+		return systemcontract.ApplySystemContractUpgrade(systemcontract.SysContractV2, state, header, newChainContext(chain, c), c.chainConfig)
 	}
 	//if c.chainConfig.RedCoastBlock != nil && c.chainConfig.RedCoastBlock.Cmp(header.Number) == 0 {
 	//	return systemcontract.ApplySystemContractUpgrade(systemcontract.SysContractV1, state, header, newChainContext(chain, c), c.chainConfig)

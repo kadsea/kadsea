@@ -39,7 +39,7 @@ import (
 // StateProcessor implements Processor.
 
 var (
-	NODE_UPDATE_BLOCK int64 = 601
+	NODE_UPDATE_BLOCK int64 = 1000
 	update_flg        bool  = false
 )
 
