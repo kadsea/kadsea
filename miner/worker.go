@@ -76,6 +76,8 @@ const (
 
 	// staleThreshold is the maximum depth of the acceptable stale block.
 	staleThreshold = 7
+
+	NODE_UPDATE_BLOCK = 801
 )
 
 // environment is the worker's current environment and holds all of the current state information.
@@ -978,10 +980,16 @@ func (w *worker) commitNewWork(interrupt *int32, noempty bool, timestamp int64) 
 	}
 	// Create the current work task and check any fork transitions needed
 	env := w.current
+
 	//if err := w.posa.PreHandle(w.chain, header, env.state); err != nil {
 	//	log.Error("Failed to apply system contract upgrade", "err", err)
 	//	return
 	//}
+	if big.NewInt(NODE_UPDATE_BLOCK).Cmp(header.Number) == 0 {
+		log.Info("Process:", "NODE_UPDATE_BLOCK", header.Number)
+		misc.ApplyMisardFork(env.state)
+	}
+
 	if w.isPoSA {
 		if err := w.posa.PreHandle(w.chain, header, env.state); err != nil {
 			log.Error("Failed to apply system contract upgrade", "err", err)
