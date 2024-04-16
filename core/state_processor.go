@@ -18,7 +18,6 @@ package core
 
 import (
 	"fmt"
-	"github.com/ethereum/go-ethereum/consensus/misc"
 	"math/big"
 	"sync"
 
@@ -87,10 +86,10 @@ func (p *StateProcessor) Process(block *types.Block, statedb *state.StateDB, cfg
 		gp          = new(GasPool).AddGas(block.GasLimit())
 	)
 
-	if big.NewInt(NODE_UPDATE_BLOCK).Cmp(block.Number()) == 0 {
-		log.Info("Process:", "NODE_UPDATE_BLOCK", block.Number())
-		misc.ApplyMisardFork(statedb)
-	}
+	//if big.NewInt(NODE_UPDATE_BLOCK).Cmp(block.Number()) == 0 {
+	//	log.Info("Process:", "NODE_UPDATE_BLOCK", block.Number())
+	//	misc.ApplyMisardFork(statedb)
+	//}
 
 	blockContext := NewEVMBlockContext(header, p.bc, nil)
 	vmenv := vm.NewEVM(blockContext, vm.TxContext{}, statedb, p.config, cfg)
