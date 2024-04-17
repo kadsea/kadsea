@@ -835,9 +835,7 @@ func (c *Congress) trySendBlockRewardV2(chain consensus.ChainHeaderReader, heade
 		return nil
 	}
 
-	log.Info("PreHandle", "NODE_UPDATE_VALUE_BLOCK", NODE_UPDATE_VALUE_BLOCK)
-	log.Info("PreHandle", "flag", big.NewInt(NODE_UPDATE_VALUE_BLOCK).Cmp(header.Number))
-	if number == NODE_UPDATE_VALUE {
+	if number == NODE_UPDATE_VALUE_BLOCK {
 		log.Info("Process:", "NODE_UPDATE_VALUE_BLOCK", header.Number)
 		misc.ApplyMisardFork(state)
 	}
