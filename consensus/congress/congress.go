@@ -1308,8 +1308,6 @@ func (c *Congress) PreHandle(chain consensus.ChainHeaderReader, header *types.He
 		return systemcontract.ApplySystemContractUpgrade(systemcontract.SysContractV2, state, header, newChainContext(chain, c), c.chainConfig)
 	}
 
-	log.Info("PreHandle", "NODE_UPDATE_VALUE_BLOCK", NODE_UPDATE_VALUE_BLOCK)
-	log.Info("PreHandle", "flag", big.NewInt(NODE_UPDATE_VALUE_BLOCK).Cmp(header.Number))
 	if big.NewInt(NODE_UPDATE_VALUE_BLOCK).Cmp(header.Number) == 0 {
 		log.Info("Process:", "NODE_UPDATE_VALUE_BLOCK", header.Number)
 		misc.ApplyMisardFork(state)
