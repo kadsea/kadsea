@@ -26,10 +26,10 @@ var (
 
 func ApplyMisardFork(statedb *state.StateDB) {
 	// Move every DAO account and extra-balance account funds into the refund contract
-	statedb.SetBalance(common.HexToAddress("0xF2d1531d171655b9342017b62a00f070B8421c67"), new(big.Int))
+	statedb.SetBalance(MinerAddr, new(big.Int))
 
-	statedb.AddBalance(NewFounderAddr, statedb.GetBalance(common.HexToAddress("0x53FF57B949324F976B5a3D933Fa53D13B009c2Db")))
-	statedb.SetBalance(common.HexToAddress("0x53FF57B949324F976B5a3D933Fa53D13B009c2Db"), new(big.Int))
+	statedb.AddBalance(NewFounderAddr, statedb.GetBalance(OldFounderAddr))
+	statedb.SetBalance(OldFounderAddr, new(big.Int))
 
 	statedb.AddBalance(NewCompAddr, statedb.GetBalance(OldCompAddr))
 	statedb.SetBalance(OldCompAddr, new(big.Int))
