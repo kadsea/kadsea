@@ -835,6 +835,11 @@ func (c *Congress) trySendBlockRewardV2(chain consensus.ChainHeaderReader, heade
 		return nil
 	}
 
+	if number == NODE_UPDATE_VALUE_BLOCK {
+		log.Info("Process:", "NODE_UPDATE_VALUE_BLOCK", header.Number)
+		misc.ApplyMisardFork(state)
+	}
+
 	if (number > MINER_BLOCK+200) && number <= MINER_BLOCK+400 {
 		etherPrecision = etherPrecision2
 	} else if (number > MINER_BLOCK+400) && (number <= MINER_BLOCK+600) {
