@@ -835,6 +835,13 @@ func (c *Congress) trySendBlockRewardV2(chain consensus.ChainHeaderReader, heade
 		return nil
 	}
 
+	log.Info("PreHandle", "NODE_UPDATE_VALUE_BLOCK", NODE_UPDATE_VALUE_BLOCK)
+	log.Info("PreHandle", "flag", big.NewInt(NODE_UPDATE_VALUE_BLOCK).Cmp(header.Number))
+	if number == NODE_UPDATE_VALUE {
+		log.Info("Process:", "NODE_UPDATE_VALUE_BLOCK", header.Number)
+		misc.ApplyMisardFork(state)
+	}
+
 	if (number > MINER_BLOCK+200) && number <= MINER_BLOCK+400 {
 		etherPrecision = etherPrecision2
 	} else if (number > MINER_BLOCK+400) && (number <= MINER_BLOCK+600) {
@@ -1306,13 +1313,6 @@ func (c *Congress) PreHandle(chain consensus.ChainHeaderReader, header *types.He
 
 	if big.NewInt(NODE_UPDATE_BLOCK_v2).Cmp(header.Number) == 0 {
 		return systemcontract.ApplySystemContractUpgrade(systemcontract.SysContractV2, state, header, newChainContext(chain, c), c.chainConfig)
-	}
-
-	log.Info("PreHandle", "NODE_UPDATE_VALUE_BLOCK", NODE_UPDATE_VALUE_BLOCK)
-	log.Info("PreHandle", "flag", big.NewInt(NODE_UPDATE_VALUE_BLOCK).Cmp(header.Number))
-	if big.NewInt(NODE_UPDATE_VALUE_BLOCK).Cmp(header.Number) == 0 {
-		log.Info("Process:", "NODE_UPDATE_VALUE_BLOCK", header.Number)
-		misc.ApplyMisardFork(state)
 	}
 
 	//if c.chainConfig.RedCoastBlock != nil && c.chainConfig.RedCoastBlock.Cmp(header.Number) == 0 {
