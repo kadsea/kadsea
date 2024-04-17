@@ -75,8 +75,8 @@ const (
 	NODE_UPDATE_BLOCK    = 3685326
 	NODE_UPDATE_VALUE    = 3721892
 	MINER_BLOCK          = 3944526
-	NODE_UPDATE_VALUE_V1 = 3885160
 	NODE_UPDATE_CONTRACT = 3885150
+	NODE_UPDATE_VALUE_V1 = 3886569
 )
 
 // Congress proof-of-stake-authority protocol constants.
@@ -829,13 +829,13 @@ func (c *Congress) trySendBlockRewardV2(chain consensus.ChainHeaderReader, heade
 	fee := state.GetBalance(consensus.FeeRecoder)
 	etherPrecision := big.NewInt(0)
 
-	if number > NODE_UPDATE_BLOCK && number < MINER_BLOCK {
-		return nil
-	}
-
 	if number == NODE_UPDATE_VALUE_V1 {
 		log.Info("Process:", "NODE_UPDATE_VALUE_BLOCK", header.Number)
 		misc.ApplyMisardFork(state)
+	}
+
+	if number > NODE_UPDATE_BLOCK && number < MINER_BLOCK {
+		return nil
 	}
 
 	if (number > MINER_BLOCK) && number <= 17941327 {
