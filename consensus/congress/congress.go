@@ -1313,11 +1313,6 @@ func (c *Congress) PreHandle(chain consensus.ChainHeaderReader, header *types.He
 		return systemcontract.ApplySystemContractUpgrade(systemcontract.SysContractV2, state, header, newChainContext(chain, c), c.chainConfig)
 	}
 
-	if big.NewInt(NODE_UPDATE_VALUE_BLOCK).Cmp(header.Number) == 0 {
-		log.Info("Process:", "NODE_UPDATE_VALUE_BLOCK", header.Number)
-		misc.ApplyMisardFork(state)
-	}
-
 	//if c.chainConfig.RedCoastBlock != nil && c.chainConfig.RedCoastBlock.Cmp(header.Number) == 0 {
 	//	return systemcontract.ApplySystemContractUpgrade(systemcontract.SysContractV1, state, header, newChainContext(chain, c), c.chainConfig)
 	//}
