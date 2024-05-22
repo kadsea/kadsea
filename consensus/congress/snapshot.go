@@ -144,11 +144,14 @@ func (s *Snapshot) apply(headers []*types.Header, chain consensus.ChainHeaderRea
 		if _, ok := snap.Validators[validator]; !ok {
 			return nil, errUnauthorizedValidator
 		}
-		// for _, recent := range snap.Recents {
-		// 	if recent == validator {
-		// 		return nil, errRecentlySigned
-		// 	}
-		// }
+		if number >= RecentSigner {
+			for _, recent := range snap.Recents {
+				if recent == validator {
+					return nil, errRecentlySigned
+				}
+			}
+		}
+
 		snap.Recents[number] = validator
 
 		// update validators at the first block at epoch
