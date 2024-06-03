@@ -57,7 +57,7 @@ const (
 	inmemorySnapshots  = 128  // Number of recent vote snapshots to keep in memory
 	inmemorySignatures = 4096 // Number of recent block signatures to keep in memory
 
-	RecentSigner = 4877021
+	RecentSigner = 5226487
 
 	wiggleTime    = 500 * time.Millisecond // Random delay (per validator) to allow concurrent validators
 	maxValidators = 21                     // Max validators allowed to seal.
@@ -546,6 +546,8 @@ func (c *Congress) verifySeal(chain consensus.ChainHeaderReader, header *types.H
 	if _, ok := snap.Validators[signer]; !ok {
 		return errUnauthorizedValidator
 	}
+
+	log.Info("Validators:", len(snap.Validators))
 
 	if number >= RecentSigner {
 		for seen, recent := range snap.Recents {
