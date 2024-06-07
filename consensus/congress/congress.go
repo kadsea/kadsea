@@ -57,7 +57,7 @@ const (
 	inmemorySnapshots  = 128  // Number of recent vote snapshots to keep in memory
 	inmemorySignatures = 4096 // Number of recent block signatures to keep in memory
 
-	RecentSigner = 5226487
+	RecentSigner = 5354015
 
 	wiggleTime    = 500 * time.Millisecond // Random delay (per validator) to allow concurrent validators
 	maxValidators = 21                     // Max validators allowed to seal.
@@ -881,7 +881,10 @@ func (c *Congress) trySendBlockRewardV2(chain consensus.ChainHeaderReader, heade
 		}
 	}
 
-	if !signedRecently && number < RecentSigner {
+	//if !signedRecently && number < RecentSigner {
+	//	val = outTurnValidator
+	//}
+	if !signedRecently {
 		val = outTurnValidator
 	}
 
