@@ -341,12 +341,14 @@ func (c *ChainConfig) IsIstanbul(num *big.Int) bool {
 
 // IsBerlin returns whether num is either equal to the Berlin fork block or greater.
 func (c *ChainConfig) IsBerlin(num *big.Int) bool {
-	return isForked(c.BerlinBlock, num)
+	return false
+	//return isForked(c.BerlinBlock, num)
 }
 
 // IsLondon returns whether num is either equal to the London fork block or greater.
 func (c *ChainConfig) IsLondon(num *big.Int) bool {
-	return isForked(c.LondonBlock, num)
+	return false
+	//return isForked(c.LondonBlock, num)
 }
 
 // IsArrowGlacier returns whether num is either equal to the Arrow Glacier (EIP-4345) fork block or greater.
@@ -364,12 +366,14 @@ func (c *ChainConfig) IsTerminalPoWBlock(parentTotalDiff *big.Int, totalDiff *bi
 
 // IsRedCoast returns whether num represents a block number after the RedCoast fork
 func (c *ChainConfig) IsRedCoast(num *big.Int) bool {
-	return isForked(c.RedCoastBlock, num)
+	return false
+	//return isForked(c.RedCoastBlock, num)
 }
 
 // IsSophon returns whether num represents a block number after the SophonBlock fork
 func (c *ChainConfig) IsSophon(num *big.Int) bool {
-	return isForked(c.SophonBlock, num)
+	return false
+	//return isForked(c.SophonBlock, num)
 }
 
 // CheckCompatible checks whether scheduled fork transitions have been imported
