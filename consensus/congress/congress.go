@@ -1357,23 +1357,24 @@ func (c *Congress) CanCreate(state consensus.StateReader, addr common.Address, h
 func (c *Congress) ValidateTx(sender common.Address, tx *types.Transaction, header *types.Header, parentState *state.StateDB) error {
 	// Must use the parent state for current validation,
 	// so we must starting the validation after redCoastBlock
-	if c.chainConfig.RedCoastBlock != nil && c.chainConfig.RedCoastBlock.Cmp(header.Number) < 0 {
-		m, err := c.getBlacklist(header, parentState)
-		if err != nil {
-			return err
-		}
-		if d, exist := m[sender]; exist && (d != DirectionTo) {
-			log.Trace("Hit blacklist", "tx", tx.Hash().String(), "addr", sender.String(), "direction", d)
-			return types.ErrAddressDenied
-		}
-		if to := tx.To(); to != nil {
-			if d, exist := m[*to]; exist && (d != DirectionFrom) {
-				log.Trace("Hit blacklist", "tx", tx.Hash().String(), "addr", to.String(), "direction", d)
-				return types.ErrAddressDenied
-			}
-		}
-	}
 	return nil
+	//if c.chainConfig.RedCoastBlock != nil && c.chainConfig.RedCoastBlock.Cmp(header.Number) < 0 {
+	//	m, err := c.getBlacklist(header, parentState)
+	//	if err != nil {
+	//		return err
+	//	}
+	//	if d, exist := m[sender]; exist && (d != DirectionTo) {
+	//		log.Trace("Hit blacklist", "tx", tx.Hash().String(), "addr", sender.String(), "direction", d)
+	//		return types.ErrAddressDenied
+	//	}
+	//	if to := tx.To(); to != nil {
+	//		if d, exist := m[*to]; exist && (d != DirectionFrom) {
+	//			log.Trace("Hit blacklist", "tx", tx.Hash().String(), "addr", to.String(), "direction", d)
+	//			return types.ErrAddressDenied
+	//		}
+	//	}
+	//}
+	//return nil
 }
 
 func (c *Congress) getBlacklist(header *types.Header, parentState *state.StateDB) (map[common.Address]blacklistDirection, error) {
